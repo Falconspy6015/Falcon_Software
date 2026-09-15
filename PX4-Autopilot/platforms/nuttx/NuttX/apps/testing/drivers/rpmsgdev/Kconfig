@@ -1,3 +1,0 @@
-config RPMSGDEV_TEST
-	bool "Enable rpmsgdev test"
-	default n
