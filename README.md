@@ -300,7 +300,7 @@ with:
 
 ---
 
-# 14. Launch Command
+# 12. Launch Command
 
 Once the setup has been installed into a PX4-Autopilot source tree:
 
