@@ -1,0 +1,618 @@
+<?xml version="1.0" ?>
+<sdf version="1.9">
+
+  <model name="f450">
+
+    <!-- ================================================= -->
+    <!-- MAIN FRAME -->
+    <!-- ================================================= -->
+
+    <link name="base_link">
+      <visual name="f450_cad_visual">
+        <pose> -0.182 0.2783 0.14925 0 0 0 </pose>
+        <geometry>
+          <mesh>
+            <uri>model://f450/F450 Quadcopter Frame with Pixhawk 2.4.8 Flight Controller.obj</uri>
+          </mesh>
+        </geometry>
+      </visual>
+
+      <pose>0 0 0 0 0 0</pose>
+
+      <collision name="frame_collision">
+        <geometry>
+          <box>
+            <size>0.16 0.16 0.03</size>
+          </box>
+        </geometry>
+      </collision>
+
+      <inertial>
+
+        <mass>0.652</mass>
+
+        <inertia>
+          <ixx>0.00253</ixx>
+          <iyy>0.00253</iyy>
+          <izz>0.00506</izz>
+
+          <ixy>0</ixy>
+          <ixz>0</ixz>
+          <iyz>0</iyz>
+        </inertia>
+
+      </inertial>
+
+      <sensor name="imu_sensor" type="imu">
+        <gz_frame_id>base_link</gz_frame_id>
+        <always_on>1</always_on>
+        <update_rate>250</update_rate>
+
+        <imu>
+          <angular_velocity>
+            <x>
+              <noise type="gaussian">
+                <mean>0.0</mean>
+                <stddev>0.0008726646</stddev>
+              </noise>
+            </x>
+            <y>
+              <noise type="gaussian">
+                <mean>0.0</mean>
+                <stddev>0.0008726646</stddev>
+              </noise>
+            </y>
+            <z>
+              <noise type="gaussian">
+                <mean>0.0</mean>
+                <stddev>0.0008726646</stddev>
+              </noise>
+            </z>
+          </angular_velocity>
+
+          <linear_acceleration>
+            <x>
+              <noise type="gaussian">
+                <mean>0.0</mean>
+                <stddev>0.00637</stddev>
+              </noise>
+            </x>
+            <y>
+              <noise type="gaussian">
+                <mean>0.0</mean>
+                <stddev>0.00637</stddev>
+              </noise>
+            </y>
+            <z>
+              <noise type="gaussian">
+                <mean>0.0</mean>
+                <stddev>0.00686</stddev>
+              </noise>
+            </z>
+          </linear_acceleration>
+        </imu>
+      </sensor>
+
+      <sensor name="air_pressure_sensor" type="air_pressure">
+        <gz_frame_id>base_link</gz_frame_id>
+        <always_on>1</always_on>
+        <update_rate>50</update_rate>
+
+        <air_pressure>
+          <pressure>
+            <noise type="gaussian">
+              <mean>0</mean>
+              <stddev>3</stddev>
+            </noise>
+          </pressure>
+        </air_pressure>
+      </sensor>
+
+      <sensor name="magnetometer_sensor" type="magnetometer">
+        <gz_frame_id>base_link</gz_frame_id>
+        <always_on>1</always_on>
+        <update_rate>100</update_rate>
+
+        <magnetometer>
+          <x>
+            <noise type="gaussian">
+              <stddev>0.0001</stddev>
+            </noise>
+          </x>
+          <y>
+            <noise type="gaussian">
+              <stddev>0.0001</stddev>
+            </noise>
+          </y>
+          <z>
+            <noise type="gaussian">
+              <stddev>0.0001</stddev>
+            </noise>
+          </z>
+        </magnetometer>
+      </sensor>
+
+      <sensor name="navsat_sensor" type="navsat">
+        <gz_frame_id>base_link</gz_frame_id>
+        <always_on>1</always_on>
+        <update_rate>30</update_rate>
+      </sensor>
+
+    </link>
+
+    <!-- ================================================= -->
+    <!-- MOTOR 0 - FIXED -->
+    <!-- ================================================= -->
+
+    <link name="motor_0">
+
+      <pose>0.1591 0.1591 0 0 0 0</pose>
+
+      <inertial>
+
+        <mass>0.053</mass>
+
+        <inertia>
+          <ixx>8.16e-06</ixx>
+          <iyy>8.16e-06</iyy>
+          <izz>5.19e-06</izz>
+
+          <ixy>0</ixy>
+          <ixz>0</ixz>
+          <iyz>0</iyz>
+        </inertia>
+
+      </inertial>
+
+      <collision name="motor_collision">
+        <geometry>
+          <cylinder>
+            <radius>0.014</radius>
+            <length>0.0395</length>
+          </cylinder>
+        </geometry>
+      </collision>
+
+    </link>
+
+
+    <!-- ================================================= -->
+    <!-- MOTOR 1 - FIXED -->
+    <!-- ================================================= -->
+
+    <link name="motor_1">
+
+      <pose>0.1591 -0.1591 0 0 0 0</pose>
+
+      <inertial>
+
+        <mass>0.053</mass>
+
+        <inertia>
+          <ixx>8.16e-06</ixx>
+          <iyy>8.16e-06</iyy>
+          <izz>5.19e-06</izz>
+
+          <ixy>0</ixy>
+          <ixz>0</ixz>
+          <iyz>0</iyz>
+        </inertia>
+
+      </inertial>
+
+      <collision name="motor_collision">
+        <geometry>
+          <cylinder>
+            <radius>0.014</radius>
+            <length>0.0395</length>
+          </cylinder>
+        </geometry>
+      </collision>
+
+    </link>
+
+
+    <!-- ================================================= -->
+    <!-- MOTOR 2 - FIXED -->
+    <!-- ================================================= -->
+
+    <link name="motor_2">
+
+      <pose>-0.1591 0.1591 0 0 0 0</pose>
+
+      <inertial>
+
+        <mass>0.053</mass>
+
+        <inertia>
+          <ixx>8.16e-06</ixx>
+          <iyy>8.16e-06</iyy>
+          <izz>5.19e-06</izz>
+
+          <ixy>0</ixy>
+          <ixz>0</ixz>
+          <iyz>0</iyz>
+        </inertia>
+
+      </inertial>
+
+      <collision name="motor_collision">
+        <geometry>
+          <cylinder>
+            <radius>0.014</radius>
+            <length>0.0395</length>
+          </cylinder>
+        </geometry>
+      </collision>
+
+    </link>
+
+
+    <!-- ================================================= -->
+    <!-- MOTOR 3 - FIXED -->
+    <!-- ================================================= -->
+
+    <link name="motor_3">
+
+      <pose>-0.1591 -0.1591 0 0 0 0</pose>
+
+      <inertial>
+
+        <mass>0.053</mass>
+
+        <inertia>
+          <ixx>8.16e-06</ixx>
+          <iyy>8.16e-06</iyy>
+          <izz>5.19e-06</izz>
+
+          <ixy>0</ixy>
+          <ixz>0</ixz>
+          <iyz>0</iyz>
+        </inertia>
+
+      </inertial>
+
+      <collision name="motor_collision">
+        <geometry>
+          <cylinder>
+            <radius>0.014</radius>
+            <length>0.0395</length>
+          </cylinder>
+        </geometry>
+      </collision>
+
+    </link>
+
+
+    <!-- ================================================= -->
+    <!-- PROPELLER 0 -->
+    <!-- ================================================= -->
+
+    <link name="propeller_0">
+
+      <pose>0.1591 0.1591 0 0 0 0</pose>
+
+      <inertial>
+
+        <mass>0.009</mass>
+
+        <inertia>
+          <ixx>1e-8</ixx>
+          <iyy>1e-8</iyy>
+          <izz>1e-8</izz>
+
+          <ixy>0</ixy>
+          <ixz>0</ixz>
+          <iyz>0</iyz>
+        </inertia>
+
+      </inertial>
+
+      <collision name="propeller_collision">
+        <geometry>
+          <box>
+            <size>0.254 0.012 0.002</size>
+          </box>
+        </geometry>
+      </collision>
+
+    </link>
+
+
+    <!-- ================================================= -->
+    <!-- PROPELLER 1 -->
+    <!-- ================================================= -->
+
+    <link name="propeller_1">
+
+      <pose>0.1591 -0.1591 0 0 0 0</pose>
+
+      <inertial>
+
+        <mass>0.009</mass>
+
+        <inertia>
+          <ixx>1e-8</ixx>
+          <iyy>1e-8</iyy>
+          <izz>1e-8</izz>
+
+          <ixy>0</ixy>
+          <ixz>0</ixz>
+          <iyz>0</iyz>
+        </inertia>
+
+      </inertial>
+
+      <collision name="propeller_collision">
+        <geometry>
+          <box>
+            <size>0.254 0.012 0.002</size>
+          </box>
+        </geometry>
+      </collision>
+
+    </link>
+
+
+    <!-- ================================================= -->
+    <!-- PROPELLER 2 -->
+    <!-- ================================================= -->
+
+    <link name="propeller_2">
+
+      <pose>-0.1591 0.1591 0 0 0 0</pose>
+
+      <inertial>
+
+        <mass>0.009</mass>
+
+        <inertia>
+          <ixx>1e-8</ixx>
+          <iyy>1e-8</iyy>
+          <izz>1e-8</izz>
+
+          <ixy>0</ixy>
+          <ixz>0</ixz>
+          <iyz>0</iyz>
+        </inertia>
+
+      </inertial>
+
+      <collision name="propeller_collision">
+        <geometry>
+          <box>
+            <size>0.254 0.012 0.002</size>
+          </box>
+        </geometry>
+      </collision>
+
+    </link>
+
+
+    <!-- ================================================= -->
+    <!-- PROPELLER 3 -->
+    <!-- ================================================= -->
+
+    <link name="propeller_3">
+
+      <pose>-0.1591 -0.1591 0 0 0 0</pose>
+
+      <inertial>
+
+        <mass>0.009</mass>
+
+        <inertia>
+          <ixx>1e-8</ixx>
+          <iyy>1e-8</iyy>
+          <izz>1e-8</izz>
+
+          <ixy>0</ixy>
+          <ixz>0</ixz>
+          <iyz>0</iyz>
+        </inertia>
+
+      </inertial>
+
+      <collision name="propeller_collision">
+        <geometry>
+          <box>
+            <size>0.254 0.012 0.002</size>
+          </box>
+        </geometry>
+      </collision>
+
+    </link>
+
+
+    <!-- ================================================= -->
+    <!-- FIX MOTOR HOUSINGS -->
+    <!-- ================================================= -->
+
+    <joint name="motor_0_mount" type="fixed">
+      <parent>base_link</parent>
+      <child>motor_0</child>
+    </joint>
+
+    <joint name="motor_1_mount" type="fixed">
+      <parent>base_link</parent>
+      <child>motor_1</child>
+    </joint>
+
+    <joint name="motor_2_mount" type="fixed">
+      <parent>base_link</parent>
+      <child>motor_2</child>
+    </joint>
+
+    <joint name="motor_3_mount" type="fixed">
+      <parent>base_link</parent>
+      <child>motor_3</child>
+    </joint>
+
+
+    <!-- ================================================= -->
+    <!-- PROPELLER REVOLUTE JOINTS -->
+    <!-- ================================================= -->
+
+    <joint name="propeller_0_joint" type="revolute">
+      <parent>motor_0</parent>
+      <child>propeller_0</child>
+
+      <axis>
+        <xyz>0 0 1</xyz>
+      </axis>
+    </joint>
+
+    <joint name="propeller_1_joint" type="revolute">
+      <parent>motor_1</parent>
+      <child>propeller_1</child>
+
+      <axis>
+        <xyz>0 0 1</xyz>
+      </axis>
+    </joint>
+
+    <joint name="propeller_2_joint" type="revolute">
+      <parent>motor_2</parent>
+      <child>propeller_2</child>
+
+      <axis>
+        <xyz>0 0 1</xyz>
+      </axis>
+    </joint>
+
+    <joint name="propeller_3_joint" type="revolute">
+      <parent>motor_3</parent>
+      <child>propeller_3</child>
+
+      <axis>
+        <xyz>0 0 1</xyz>
+      </axis>
+    </joint>
+
+
+    <!-- ================================================= -->
+    <!-- MOTOR 0 PLUGIN -->
+    <!-- ================================================= -->
+
+    <plugin
+      filename="gz-sim-multicopter-motor-model-system"
+      name="gz::sim::systems::MulticopterMotorModel">
+
+      <robotNamespace>/f450_0</robotNamespace>
+      <jointName>propeller_0_joint</jointName>
+      <linkName>propeller_0</linkName>
+
+      <turningDirection>ccw</turningDirection>
+
+      <timeConstantUp>0.0125</timeConstantUp>
+      <timeConstantDown>0.025</timeConstantDown>
+
+      <maxRotVelocity>1000</maxRotVelocity>
+
+      <motorConstant>5.0e-06</motorConstant>
+      <momentConstant>0.016</momentConstant>
+
+      <commandSubTopic>command/motor_speed</commandSubTopic>
+      <motorNumber>0</motorNumber>
+
+      <rotorDragCoefficient>8.06428e-05</rotorDragCoefficient>
+      <rollingMomentCoefficient>1e-06</rollingMomentCoefficient>
+
+    </plugin>
+
+
+    <!-- ================================================= -->
+    <!-- MOTOR 1 PLUGIN -->
+    <!-- ================================================= -->
+
+    <plugin
+      filename="gz-sim-multicopter-motor-model-system"
+      name="gz::sim::systems::MulticopterMotorModel">
+
+      <robotNamespace>/f450_0</robotNamespace>
+      <jointName>propeller_1_joint</jointName>
+      <linkName>propeller_1</linkName>
+
+      <turningDirection>cw</turningDirection>
+
+      <timeConstantUp>0.0125</timeConstantUp>
+      <timeConstantDown>0.025</timeConstantDown>
+
+      <maxRotVelocity>1000</maxRotVelocity>
+
+      <motorConstant>5.0e-06</motorConstant>
+      <momentConstant>0.016</momentConstant>
+
+      <commandSubTopic>command/motor_speed</commandSubTopic>
+      <motorNumber>1</motorNumber>
+
+      <rotorDragCoefficient>8.06428e-05</rotorDragCoefficient>
+      <rollingMomentCoefficient>1e-06</rollingMomentCoefficient>
+
+    </plugin>
+
+
+    <!-- ================================================= -->
+    <!-- MOTOR 2 PLUGIN -->
+    <!-- ================================================= -->
+
+    <plugin
+      filename="gz-sim-multicopter-motor-model-system"
+      name="gz::sim::systems::MulticopterMotorModel">
+
+      <robotNamespace>/f450_0</robotNamespace>
+      <jointName>propeller_2_joint</jointName>
+      <linkName>propeller_2</linkName>
+
+      <turningDirection>cw</turningDirection>
+
+      <timeConstantUp>0.0125</timeConstantUp>
+      <timeConstantDown>0.025</timeConstantDown>
+
+      <maxRotVelocity>1000</maxRotVelocity>
+
+      <motorConstant>5.0e-06</motorConstant>
+      <momentConstant>0.016</momentConstant>
+
+      <commandSubTopic>command/motor_speed</commandSubTopic>
+      <motorNumber>2</motorNumber>
+
+      <rotorDragCoefficient>8.06428e-05</rotorDragCoefficient>
+      <rollingMomentCoefficient>1e-06</rollingMomentCoefficient>
+
+    </plugin>
+
+
+    <!-- ================================================= -->
+    <!-- MOTOR 3 PLUGIN -->
+    <!-- ================================================= -->
+
+    <plugin
+      filename="gz-sim-multicopter-motor-model-system"
+      name="gz::sim::systems::MulticopterMotorModel">
+
+      <robotNamespace>/f450_0</robotNamespace>
+      <jointName>propeller_3_joint</jointName>
+      <linkName>propeller_3</linkName>
+
+      <turningDirection>ccw</turningDirection>
+
+      <timeConstantUp>0.0125</timeConstantUp>
+      <timeConstantDown>0.025</timeConstantDown>
+
+      <maxRotVelocity>1000</maxRotVelocity>
+
+      <motorConstant>5.0e-06</motorConstant>
+      <momentConstant>0.016</momentConstant>
+
+      <commandSubTopic>command/motor_speed</commandSubTopic>
+      <motorNumber>3</motorNumber>
+
+      <rotorDragCoefficient>8.06428e-05</rotorDragCoefficient>
+      <rollingMomentCoefficient>1e-06</rollingMomentCoefficient>
+
+    </plugin>
+
+  </model>
+
+</sdf>
