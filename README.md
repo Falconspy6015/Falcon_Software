@@ -310,3 +310,74 @@ make px4_sitl gz_f450
 ```
 
 This builds and launches the custom F450 PX4 SITL configuration with Gazebo.
+
+# 13. Waypoint Node Usage
+
+The `setpoints_node.py` file can be used to send a sequence of position waypoints to the F450.
+
+## 13.1 Launch the Node
+
+Make sure PX4 SITL, Gazebo, and MAVROS are already running.
+
+In a new terminal, source your ROS 2 environment:
+
+```bash
+source /opt/ros/jazzy/setup.bash
+```
+
+Then run the node:
+
+```bash
+python3 setpoints_node.py
+```
+
+If the file is located in a different directory, first navigate to that directory:
+
+```bash
+cd /path/to/setpoints_node.py
+python3 setpoints_node.py
+```
+
+---
+
+## 13.2 Waypoint Topic
+
+The node subscribes to:
+
+```text
+/waypoints
+```
+
+with message type:
+
+```text
+geometry_msgs/msg/PoseArray
+```
+
+The waypoints should be provided as a `PoseArray`, with each `Pose` representing one waypoint.
+
+Each waypoint is specified using:
+
+```text
+x, y, z
+```
+
+in meters.
+
+For example:
+
+```text
+Waypoint 1: (5.0, 0.0, 2.0)
+Waypoint 2: (5.0, 5.0, 2.0)
+Waypoint 3: (0.0, 5.0, 2.0)
+Waypoint 4: (0.0, 0.0, 2.0)
+```
+
+These can be published using:
+
+```bash
+ros2 topic pub --once /waypoints geometry_msgs/msg/PoseArray "{header: {frame_id: 'map'}, poses: [{position: {x: 5.0, y: 0.0, z: 2.0}, orientation: {w: 1.0}}, {position: {x: 5.0, y: 5.0, z: 2.0}, orientation: {w: 1.0}}, {position: {x: 0.0, y: 5.0, z: 2.0}, orientation: {w: 1.0}}, {position: {x: 0.0, y: 0.0, z: 2.0}, orientation: {w: 1.0}}]}"
+```
+
+The node accepts any number of waypoints. The number of waypoints is determined by the number of `Pose` elements in the `PoseArray`.
+
