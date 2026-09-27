@@ -311,36 +311,135 @@ make px4_sitl gz_f450
 
 This builds and launches the custom F450 PX4 SITL configuration with Gazebo.
 
-# 13. Waypoint Node Usage
+# 13. ROS 2 Waypoint Node
 
-The `setpoints_node.py` file can be used to send a sequence of position waypoints to the F450.
+The `setpoints_node.py` file is a ROS 2 Python node that accepts position waypoints through the `/waypoints` topic.
 
-## 13.1 Launch the Node
+## 13.1 Create a ROS 2 Python Package
 
-Make sure PX4 SITL, Gazebo, and MAVROS are already running.
-
-In a new terminal, source your ROS 2 environment:
+Create a ROS 2 workspace if you do not already have one:
 
 ```bash
-source /opt/ros/jazzy/setup.bash
+mkdir -p ~/ros2_ws/src
+cd ~/ros2_ws/src
 ```
 
-Then run the node:
+Create a Python package:
 
 ```bash
-python3 setpoints_node.py
+ros2 pkg create --build-type ament_python <package_name>
 ```
 
-If the file is located in a different directory, first navigate to that directory:
+Replace `<package_name>` with the name you want to use for the package.
+
+For example:
 
 ```bash
-cd /path/to/setpoints_node.py
-python3 setpoints_node.py
+ros2 pkg create --build-type ament_python waypoint_control
+```
+
+Copy `setpoints_node.py` into the Python package directory:
+
+```text
+ros2_ws/
+└── src/
+    └── <package_name>/
+        ├── <package_name>/
+        │   ├── __init__.py
+        │   └── setpoints_node.py
+        ├── package.xml
+        ├── setup.py
+        └── setup.cfg
 ```
 
 ---
 
-## 13.2 Waypoint Topic
+## 13.2 Add the Node to `setup.py`
+
+Open:
+
+```text
+<package_name>/setup.py
+```
+
+Find the `entry_points` section:
+
+```python
+entry_points={
+    'console_scripts': [
+    ],
+},
+```
+
+Add:
+
+```python
+entry_points={
+    'console_scripts': [
+        'setpoints_node = <package_name>.setpoints_node:main',
+    ],
+},
+```
+
+For example, if the package is called `waypoint_control`:
+
+```python
+entry_points={
+    'console_scripts': [
+        'setpoints_node = waypoint_control.setpoints_node:main',
+    ],
+},
+```
+
+This allows the node to be launched using:
+
+```bash
+ros2 run <package_name> setpoints_node
+```
+
+---
+
+## 13.3 Build the Package
+
+Go to the workspace:
+
+```bash
+cd ~/ros2_ws
+```
+
+Build the package:
+
+```bash
+colcon build --packages-select <package_name>
+```
+
+Then source the workspace:
+
+```bash
+source install/setup.bash
+```
+
+---
+
+## 13.4 Launch the Node
+
+Make sure PX4 SITL, Gazebo, and MAVROS are already running.
+
+Then run:
+
+```bash
+ros2 run <package_name> setpoints_node
+```
+
+For example:
+
+```bash
+ros2 run waypoint_control setpoints_node
+```
+
+---
+
+## 13.5 Waypoint Topic
 
 The node subscribes to:
 
@@ -348,15 +447,15 @@ The node subscribes to:
 /waypoints
 ```
 
-with message type:
+The message type is:
 
 ```text
 geometry_msgs/msg/PoseArray
 ```
 
-The waypoints should be provided as a `PoseArray`, with each `Pose` representing one waypoint.
+Each `Pose` in the `PoseArray` represents one waypoint.
 
-Each waypoint is specified using:
+Only the position values are used:
 
 ```text
 x, y, z
@@ -364,7 +463,7 @@ x, y, z
 
 in meters.
 
-For example:
+For example, four waypoints can be specified as:
 
 ```text
 Waypoint 1: (5.0, 0.0, 2.0)
@@ -373,11 +472,12 @@ Waypoint 3: (0.0, 5.0, 2.0)
 Waypoint 4: (0.0, 0.0, 2.0)
 ```
 
-These can be published using:
+They can be published using:
 
 ```bash
 ros2 topic pub --once /waypoints geometry_msgs/msg/PoseArray "{header: {frame_id: 'map'}, poses: [{position: {x: 5.0, y: 0.0, z: 2.0}, orientation: {w: 1.0}}, {position: {x: 5.0, y: 5.0, z: 2.0}, orientation: {w: 1.0}}, {position: {x: 0.0, y: 5.0, z: 2.0}, orientation: {w: 1.0}}, {position: {x: 0.0, y: 0.0, z: 2.0}, orientation: {w: 1.0}}]}"
 ```
 
 The node accepts any number of waypoints. The number of waypoints is determined by the number of `Pose` elements in the `PoseArray`.
+
 
